@@ -11,7 +11,7 @@ export default function SplashScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       router.replace('/RoleSelectScreen');
-    }, 5000);
+    }, 6000);
     return () => clearTimeout(timer);
   }, []);
 
