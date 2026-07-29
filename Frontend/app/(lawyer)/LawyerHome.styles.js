@@ -3,7 +3,7 @@ import {
   View, Text, ScrollView, TouchableOpacity, SafeAreaView, StatusBar,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import styles from './LawyerHome.styles';
+import styles from './LawyerHome.styles';  // ← THIS WAS MISSING
 
 const newRequests = [
   { name: 'Ahmed K. — Property', desc: 'Land dispute in Hyderabad — 2 documents attached' },
@@ -79,23 +79,41 @@ export default function LawyerHome() {
         </View>
 
         <View style={styles.statsRow}>
-          <View style={styles.statChip}><Text style={styles.statNum}>12</Text><Text style={styles.statLabel}>Active Cases</Text></View>
-          <View style={styles.statChip}><Text style={styles.statNum}>3</Text><Text style={styles.statLabel}>New Requests</Text></View>
-          <View style={styles.statChip}><Text style={styles.statNum}>4.9</Text><Text style={styles.statLabel}>Rating</Text></View>
+          <View style={styles.statChip}>
+            <Text style={styles.statNum}>12</Text>
+            <Text style={styles.statLabel}>Active Cases</Text>
+          </View>
+          <View style={styles.statChip}>
+            <Text style={styles.statNum}>3</Text>
+            <Text style={styles.statLabel}>New Requests</Text>
+          </View>
+          <View style={styles.statChip}>
+            <Text style={styles.statNum}>4.9</Text>
+            <Text style={styles.statLabel}>Rating</Text>
+          </View>
         </View>
       </View>
 
-      <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.sectionHeaderRow}>
-          <Text style={[styles.sectionLabel, { marginTop: 0, marginBottom: 0 }]}>New Client Requests</Text>
+          <Text style={[styles.sectionLabel, { marginTop: 0, marginBottom: 0 }]}>
+            New Client Requests
+          </Text>
           <TouchableOpacity onPress={() => router.push('/(lawyer)/CaseRequests')}>
             <Text style={styles.seeAllText}>See All →</Text>
           </TouchableOpacity>
         </View>
 
         {newRequests.map((r, i) => (
-          <TouchableOpacity key={i} style={styles.reqCard} onPress={() => router.push('/(lawyer)/CaseRequests')}>
+          <TouchableOpacity
+            key={i}
+            style={styles.reqCard}
+            onPress={() => router.push('/(lawyer)/CaseRequests')}
+          >
             <View style={styles.reqTop}>
               <Text style={styles.reqName}>{r.name}</Text>
               <Text style={styles.badgeNew}>New</Text>
@@ -105,14 +123,20 @@ export default function LawyerHome() {
         ))}
 
         <View style={styles.sectionHeaderRow}>
-          <Text style={[styles.sectionLabel, { marginTop: 0, marginBottom: 0 }]}>Case Pipeline</Text>
+          <Text style={[styles.sectionLabel, { marginTop: 0, marginBottom: 0 }]}>
+            Case Pipeline
+          </Text>
           <TouchableOpacity onPress={() => router.push('/(lawyer)/MyCases')}>
             <Text style={styles.seeAllText}>View All →</Text>
           </TouchableOpacity>
         </View>
 
         {pipeline.map((p, i) => (
-          <TouchableOpacity key={i} style={styles.pipeItem} onPress={() => router.push('/(lawyer)/MyCases')}>
+          <TouchableOpacity
+            key={i}
+            style={styles.pipeItem}
+            onPress={() => router.push('/(lawyer)/MyCases')}
+          >
             <View style={styles.pipeTop}>
               <View style={styles.pipeLeft}>
                 <View style={[styles.pipeDot, { backgroundColor: p.dot }]} />
@@ -127,21 +151,33 @@ export default function LawyerHome() {
         <Text style={styles.sectionLabel}>Quick Actions</Text>
         <View style={styles.quickGrid}>
           {quickActions.map((q, i) => (
-            <TouchableOpacity key={i} style={styles.quickCard} onPress={() => handleQuickAction(q.title)}>
+            <TouchableOpacity
+              key={i}
+              style={styles.quickCard}
+              onPress={() => handleQuickAction(q.title)}
+            >
               <Text style={styles.quickIcon}>{q.icon}</Text>
               <Text style={styles.quickTitle}>{q.title}</Text>
               <Text style={styles.quickSub}>{q.sub}</Text>
             </TouchableOpacity>
           ))}
         </View>
-
       </ScrollView>
 
       <View style={styles.bottomNav}>
         {navItems.map((item) => (
-          <TouchableOpacity key={item.id} style={styles.navItem} onPress={() => handleNav(item.id)}>
+          <TouchableOpacity
+            key={item.id}
+            style={styles.navItem}
+            onPress={() => handleNav(item.id)}
+          >
             <Text style={styles.navIcon}>{item.icon}</Text>
-            <Text style={[styles.navLabel, activeNav === item.id && styles.navLabelActive]}>{item.label}</Text>
+            <Text style={[
+              styles.navLabel,
+              activeNav === item.id && styles.navLabelActive,
+            ]}>
+              {item.label}
+            </Text>
             {activeNav === item.id && <View style={styles.navActiveDot} />}
           </TouchableOpacity>
         ))}

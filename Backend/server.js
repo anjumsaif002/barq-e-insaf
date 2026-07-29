@@ -15,9 +15,7 @@ app.use(express.json());
 app.use('/api/auth',      require('./routes/auth'));
 app.use('/api/lawyers',   require('./routes/lawyers'));
 app.use('/api/cases',     require('./routes/cases'));
-app.use('/api/evidence',  require('./routes/evidence'));
 app.use('/api/admin',     require('./routes/admin'));
-app.use('/api/analytics', require('./routes/analytics'));
 
 // Health check
 app.get('/', (req, res) => {

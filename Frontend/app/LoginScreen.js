@@ -38,7 +38,6 @@ export default function LoginScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <View style={styles.container}>
-
         {/* Background image + gradient */}
         <Image
           source={require('../assets/images/login-bg.jpeg')}
@@ -123,21 +122,20 @@ export default function LoginScreen() {
             <Text style={styles.forgotText}>Forgot password?</Text>
           </TouchableOpacity>
 
-          // In LoginScreen.js, find the loginBtn TouchableOpacity and replace it:
-<TouchableOpacity
-  style={[styles.loginBtn, { backgroundColor: config.color }]}
-  activeOpacity={0.85}
-  onPress={() => {
-    if (role === 'admin') router.replace('/(Admin)');
-    else if (role === 'lawyer') router.replace('/LawyerHome');
-    else if (role === 'citizen') router.replace('/CitizenHome');
-    else if (role === 'ngo') router.replace('/NGOHome');
-  }}
->
-  <Text style={styles.loginBtnText}>
-    {activeTab === 'login' ? 'LOGIN' : 'CREATE ACCOUNT'}
-  </Text>
-</TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.loginBtn, { backgroundColor: config.color }]}
+            activeOpacity={0.85}
+            onPress={() => {
+              if (role === 'admin') router.replace('/(Admin)');
+              else if (role === 'lawyer') router.replace('/(lawyer)/LawyerHome');
+              else if (role === 'citizen') router.replace('/(citizen)/CitizenHome');
+              else if (role === 'ngo') router.replace('/(ngo)/NGOHome');
+            }}
+          >
+            <Text style={styles.loginBtnText}>
+              {activeTab === 'login' ? 'LOGIN' : 'CREATE ACCOUNT'}
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     </KeyboardAvoidingView>
