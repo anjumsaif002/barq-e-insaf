@@ -128,7 +128,7 @@ export default function LoginScreen() {
   activeOpacity={0.85}
   onPress={() => {
     if (role === 'admin') router.replace('/AdminHome');
-    else if (role === 'lawyer') router.replace('/LawyerHome');
+  if (role === 'lawyer')  router.replace('/(lawyer)/LawyerHome');
     else if (role === 'citizen') router.replace('/(citizen)/CitizenHome');
     else if (role === 'ngo') router.replace('/NGOHome');
   }}
