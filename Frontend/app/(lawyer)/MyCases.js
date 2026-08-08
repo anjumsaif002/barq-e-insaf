@@ -37,7 +37,7 @@ export default function MyCases() {
         </ScrollView>
 
         {filtered.map((c, i) => (
-          <View key={i} style={styles.caseCard}>
+          <TouchableOpacity key={i} style={styles.caseCard} onPress={() => router.push('/(lawyer)/CaseDetail')}>
             <View style={styles.caseTop}>
               <Text style={styles.caseTitle}>{c.title}</Text>
               <Text style={[styles.badge, styles[c.style]]}>{c.badge}</Text>
@@ -51,7 +51,7 @@ export default function MyCases() {
                 <Text style={styles.notesBtnText}>Add Notes</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </TouchableOpacity> // Fixed closing tag here
         ))}
       </ScrollView>
     </SafeAreaView>

@@ -1,187 +1,63 @@
-import React, { useState } from 'react';
-import {
-  View, Text, ScrollView, TouchableOpacity, SafeAreaView, StatusBar,
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import styles from './LawyerHome.styles';  // ← THIS WAS MISSING
+import { StyleSheet, Dimensions, Platform, StatusBar } from 'react-native';
 
-const newRequests = [
-  { name: 'Ahmed K. — Property', desc: 'Land dispute in Hyderabad — 2 documents attached' },
-  { name: 'Zara M. — Family',    desc: 'Custody case — Karachi courts' },
-];
+const { width } = Dimensions.get('window');
+const STATUSBAR_HEIGHT = Platform.OS === 'android' ? (StatusBar.currentHeight || 36) : 0;
 
-const pipeline = [
-  { dot: '#3b82f6', title: 'Raza vs. Malik — Property', sub: 'Hearing: 22 Apr · Civil Court Karachi', badge: 'Hearing', style: 'badgeBlue' },
-  { dot: '#f59e0b', title: 'Khan Divorce Settlement',   sub: 'Docs needed · 3 evidence files',        badge: 'Docs',    style: 'badgeAmber' },
-  { dot: '#4ade80', title: 'Memon Inheritance — Sukkur',sub: 'Evidence submitted · Awaiting date',     badge: 'Active',  style: 'badgeGreen' },
-];
-
-const quickActions = [
-  { icon: '📨', title: 'Case Requests', sub: '3 new requests' },
-  { icon: '📅', title: 'My Schedule',   sub: '2 hearings today' },
-  { icon: '📝', title: 'My Cases',      sub: 'View & manage' },
-  { icon: '💰', title: 'Earnings',      sub: 'View statements' },
-];
-
-const navItems = [
-  { id: 'home',     icon: '📊', label: 'Dashboard' },
-  { id: 'requests', icon: '📨', label: 'Requests'  },
-  { id: 'cases',    icon: '📁', label: 'Cases'     },
-  { id: 'schedule', icon: '📅', label: 'Schedule'  },
-  { id: 'earnings', icon: '💰', label: 'Earnings'  },
-];
-
-export default function LawyerHome() {
-  const router = useRouter();
-  const [activeNav, setActiveNav] = useState('home');
-
-  const handleNav = (id) => {
-    setActiveNav(id);
-    if (id === 'requests') router.push('/(lawyer)/CaseRequests');
-    if (id === 'cases')    router.push('/(lawyer)/MyCases');
-    if (id === 'schedule') router.push('/(lawyer)/Schedule');
-    if (id === 'earnings') router.push('/(lawyer)/Earnings');
-  };
-
-  const handleQuickAction = (title) => {
-    if (title === 'Case Requests') router.push('/(lawyer)/CaseRequests');
-    if (title === 'My Schedule')   router.push('/(lawyer)/Schedule');
-    if (title === 'My Cases')      router.push('/(lawyer)/MyCases');
-    if (title === 'Earnings')      router.push('/(lawyer)/Earnings');
-  };
-
-  return (
-    <SafeAreaView style={styles.safe}>
-      <StatusBar barStyle="light-content" backgroundColor="#0F2744" />
-
-      <View style={styles.header}>
-        <View style={styles.headerRow}>
-          <View style={styles.brand}>
-            <Text style={styles.brandName}>Barq-e-Insaf ⚡</Text>
-            <Text style={styles.brandSub}>Lawyer Portal</Text>
-          </View>
-          <View style={styles.headerRight}>
-            <TouchableOpacity style={styles.notifBtn}>
-              <Text style={styles.notifIcon}>🔔</Text>
-            </TouchableOpacity>
-            <View style={styles.avatar}>
-              <Text style={styles.avatarText}>SR</Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.nameRow}>
-          <Text style={styles.lawyerName}>Sara Raza — Advocate, SBC #4421</Text>
-          <Text style={styles.stars}>★★★★★</Text>
-          <View style={styles.verifiedPill}>
-            <Text style={styles.verifiedText}>✓ SBC Verified</Text>
-          </View>
-        </View>
-
-        <View style={styles.statsRow}>
-          <View style={styles.statChip}>
-            <Text style={styles.statNum}>12</Text>
-            <Text style={styles.statLabel}>Active Cases</Text>
-          </View>
-          <View style={styles.statChip}>
-            <Text style={styles.statNum}>3</Text>
-            <Text style={styles.statLabel}>New Requests</Text>
-          </View>
-          <View style={styles.statChip}>
-            <Text style={styles.statNum}>4.9</Text>
-            <Text style={styles.statLabel}>Rating</Text>
-          </View>
-        </View>
-      </View>
-
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.sectionHeaderRow}>
-          <Text style={[styles.sectionLabel, { marginTop: 0, marginBottom: 0 }]}>
-            New Client Requests
-          </Text>
-          <TouchableOpacity onPress={() => router.push('/(lawyer)/CaseRequests')}>
-            <Text style={styles.seeAllText}>See All →</Text>
-          </TouchableOpacity>
-        </View>
-
-        {newRequests.map((r, i) => (
-          <TouchableOpacity
-            key={i}
-            style={styles.reqCard}
-            onPress={() => router.push('/(lawyer)/CaseRequests')}
-          >
-            <View style={styles.reqTop}>
-              <Text style={styles.reqName}>{r.name}</Text>
-              <Text style={styles.badgeNew}>New</Text>
-            </View>
-            <Text style={styles.reqDesc}>{r.desc}</Text>
-          </TouchableOpacity>
-        ))}
-
-        <View style={styles.sectionHeaderRow}>
-          <Text style={[styles.sectionLabel, { marginTop: 0, marginBottom: 0 }]}>
-            Case Pipeline
-          </Text>
-          <TouchableOpacity onPress={() => router.push('/(lawyer)/MyCases')}>
-            <Text style={styles.seeAllText}>View All →</Text>
-          </TouchableOpacity>
-        </View>
-
-        {pipeline.map((p, i) => (
-          <TouchableOpacity
-            key={i}
-            style={styles.pipeItem}
-            onPress={() => router.push('/(lawyer)/MyCases')}
-          >
-            <View style={styles.pipeTop}>
-              <View style={styles.pipeLeft}>
-                <View style={[styles.pipeDot, { backgroundColor: p.dot }]} />
-                <Text style={styles.pipeTitle}>{p.title}</Text>
-              </View>
-              <Text style={[styles.statusBadge, styles[p.style]]}>{p.badge}</Text>
-            </View>
-            <Text style={styles.pipeSub}>{p.sub}</Text>
-          </TouchableOpacity>
-        ))}
-
-        <Text style={styles.sectionLabel}>Quick Actions</Text>
-        <View style={styles.quickGrid}>
-          {quickActions.map((q, i) => (
-            <TouchableOpacity
-              key={i}
-              style={styles.quickCard}
-              onPress={() => handleQuickAction(q.title)}
-            >
-              <Text style={styles.quickIcon}>{q.icon}</Text>
-              <Text style={styles.quickTitle}>{q.title}</Text>
-              <Text style={styles.quickSub}>{q.sub}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
-
-      <View style={styles.bottomNav}>
-        {navItems.map((item) => (
-          <TouchableOpacity
-            key={item.id}
-            style={styles.navItem}
-            onPress={() => handleNav(item.id)}
-          >
-            <Text style={styles.navIcon}>{item.icon}</Text>
-            <Text style={[
-              styles.navLabel,
-              activeNav === item.id && styles.navLabelActive,
-            ]}>
-              {item.label}
-            </Text>
-            {activeNav === item.id && <View style={styles.navActiveDot} />}
-          </TouchableOpacity>
-        ))}
-      </View>
-    </SafeAreaView>
-  );
-}
+export default StyleSheet.create({
+  safe: { flex: 1, backgroundColor: '#0F2744' },
+  header: {
+    backgroundColor: '#0F2744',
+    paddingHorizontal: 20,
+    paddingTop: STATUSBAR_HEIGHT + 16, // Adds exact status bar spacing for Android
+    paddingBottom: 24,
+  },
+  headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
+  brand: { flexDirection: 'column' },
+  brandName: { fontSize: 22, fontWeight: '900', color: '#fff', letterSpacing: -0.5 },
+  brandSub: { fontSize: 11, color: '#3b82f6', fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.5 },
+  headerRight: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  notifBtn: { width: 40, height: 40, borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.08)', justifyContent: 'center', alignItems: 'center' },
+  notifIcon: { fontSize: 18 },
+  avatar: { width: 40, height: 40, borderRadius: 20, backgroundColor: '#3b82f6', justifyContent: 'center', alignItems: 'center' },
+  avatarText: { color: '#fff', fontWeight: '800', fontSize: 13 },
+  nameRow: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 16 },
+  lawyerName: { fontSize: 16, fontWeight: '800', color: '#fff' },
+  stars: { color: '#fbbf24', fontSize: 12 },
+  verifiedPill: { backgroundColor: '#dcfce7', paddingHorizontal: 8, paddingVertical: 3, borderRadius: 50 },
+  verifiedText: { color: '#166534', fontSize: 10, fontWeight: '800' },
+  statsRow: { flexDirection: 'row', gap: 8 },
+  statChip: { flex: 1, backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: 12, padding: 12, alignItems: 'center', borderWidth: 1, borderColor: 'rgba(255,255,255,0.05)' },
+  statNum: { fontSize: 18, fontWeight: '800', color: '#fff' },
+  statLabel: { fontSize: 10, color: 'rgba(255,255,255,0.6)', marginTop: 2, fontWeight: '500' },
+  scroll: { flex: 1, backgroundColor: '#F5F3EF', borderTopLeftRadius: 28, borderTopRightRadius: 28 },
+  scrollContent: { padding: 20, paddingBottom: 40, gap: 16 },
+  sectionHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 },
+  sectionLabel: { fontSize: 15, fontWeight: '800', color: '#0F2744', letterSpacing: -0.2 },
+  seeAllText: { fontSize: 12, color: '#3b82f6', fontWeight: '700' },
+  reqCard: { backgroundColor: '#fff', borderRadius: 16, padding: 16, borderWidth: 1, borderColor: '#ece9e4' },
+  reqTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 },
+  reqName: { fontSize: 14, fontWeight: '700', color: '#1a1a1a' },
+  badgeNew: { fontSize: 9, fontWeight: '800', color: '#fff', backgroundColor: '#ef4444', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 50, textTransform: 'uppercase' },
+  reqDesc: { fontSize: 12, color: '#666', lineHeight: 16 },
+  pipeItem: { backgroundColor: '#fff', borderRadius: 16, padding: 16, borderWidth: 1, borderColor: '#ece9e4' },
+  pipeTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 },
+  pipeLeft: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  pipeDot: { width: 8, height: 8, borderRadius: 4 },
+  pipeTitle: { fontSize: 13, fontWeight: '700', color: '#1a1a1a' },
+  pipeSub: { fontSize: 11, color: '#888' },
+  statusBadge: { fontSize: 9, fontWeight: '800', paddingHorizontal: 8, paddingVertical: 3, borderRadius: 6, textTransform: 'uppercase' },
+  badgeBlue: { backgroundColor: '#dbeafe', color: '#1e40af' },
+  badgeAmber: { backgroundColor: '#fef3c7', color: '#92400e' },
+  badgeGreen: { backgroundColor: '#dcfce7', color: '#166534' },
+  quickGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
+  quickCard: { width: (width - 52) / 2, backgroundColor: '#fff', borderRadius: 16, padding: 16, borderWidth: 1, borderColor: '#ece9e4' },
+  quickIcon: { fontSize: 22, marginBottom: 8 },
+  quickTitle: { fontSize: 13, fontWeight: '700', color: '#1a1a1a' },
+  quickSub: { fontSize: 10, color: '#888', marginTop: 2 },
+  bottomNav: { flexDirection: 'row', backgroundColor: '#fff', borderTopWidth: 1, borderTopColor: '#ece9e4', paddingVertical: 8, paddingBottom: 20, justifyContent: 'space-around' },
+  navItem: { alignItems: 'center', justifyContent: 'center', paddingVertical: 4 },
+  navIcon: { fontSize: 18, marginBottom: 2 },
+  navLabel: { fontSize: 10, color: '#999', fontWeight: '600' },
+  navLabelActive: { color: '#0F2744' },
+  navActiveDot: { width: 4, height: 4, borderRadius: 2, backgroundColor: '#0F2744', marginTop: 3 },
+});

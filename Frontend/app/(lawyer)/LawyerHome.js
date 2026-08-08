@@ -25,15 +25,15 @@ const quickActions = [
   { icon: '📨', title: 'Case Requests', sub: '3 new requests',   route: '/(lawyer)/CaseRequests' },
   { icon: '📅', title: 'My Schedule',   sub: '2 hearings today', route: '/(lawyer)/Schedule'     },
   { icon: '📁', title: 'My Cases',      sub: 'View & manage',    route: '/(lawyer)/MyCases'      },
-  { icon: '💰', title: 'Earnings',      sub: 'View statements',  route: '/(lawyer)/Earnings'     },
+  { icon: '⭐', title: 'Client Reviews',sub: 'View ratings (4.9)',route: '/(lawyer)/LawyerReviews' },
 ];
 
 const navItems = [
-  { id: 'home',     icon: '📊', label: 'Dashboard', route: null                      },
-  { id: 'requests', icon: '📨', label: 'Requests',  route: '/(lawyer)/CaseRequests'  },
-  { id: 'cases',    icon: '📁', label: 'Cases',     route: '/(lawyer)/MyCases'       },
-  { id: 'schedule', icon: '📅', label: 'Schedule',  route: '/(lawyer)/Schedule'      },
-  { id: 'earnings', icon: '💰', label: 'Earnings',  route: '/(lawyer)/Earnings'      },
+  { id: 'home',     icon: '📊', label: 'Dashboard', route: null                       },
+  { id: 'requests', icon: '📨', label: 'Requests',  route: '/(lawyer)/CaseRequests'   },
+  { id: 'cases',    icon: '📁', label: 'Cases',     route: '/(lawyer)/MyCases'        },
+  { id: 'schedule', icon: '📅', label: 'Schedule',  route: '/(lawyer)/Schedule'       },
+  { id: 'profile',  icon: '👤', label: 'Profile',   route: '/(lawyer)/LawyerProfile'  },
 ];
 
 export default function LawyerHome() {
@@ -60,9 +60,9 @@ export default function LawyerHome() {
             <TouchableOpacity style={styles.notifBtn}>
               <Text style={styles.notifIcon}>🔔</Text>
             </TouchableOpacity>
-            <View style={styles.avatar}>
+            <TouchableOpacity style={styles.avatar} onPress={() => router.push('/(lawyer)/LawyerProfile')}>
               <Text style={styles.avatarText}>SR</Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
 
