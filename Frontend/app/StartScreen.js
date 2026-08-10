@@ -16,13 +16,7 @@ import { useRouter } from 'expo-router';
 
 const { width, height } = Dimensions.get('window');
 
-// Floating sparkles
-const sparkles = [
-  { top: '10%', left: '8%' },
-  { top: '22%', left: '84%' },
-  { top: '34%', left: '14%' },
-  { top: '15%', left: '68%' },
-];
+
 
 export default function StartScreen() {
   const router = useRouter();
@@ -33,31 +27,7 @@ export default function StartScreen() {
   const pulseBtn = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    // 1. Smooth floating animation for the hero image card
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(floatAnim, {
-          toValue: -10,
-          duration: 1800,
-          easing: Easing.inOut(Easing.ease),
-          useNativeDriver: true,
-        }),
-        Animated.timing(floatAnim, {
-          toValue: 0,
-          duration: 1800,
-          easing: Easing.inOut(Easing.ease),
-          useNativeDriver: true,
-        }),
-      ])
-    ).start();
 
-    // 2. Shimmering sparkle particles
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(sparklePulse, { toValue: 1, duration: 1200, useNativeDriver: true }),
-        Animated.timing(sparklePulse, { toValue: 0.3, duration: 1200, useNativeDriver: true }),
-      ])
-    ).start();
 
     // 3. GET STARTED button pulse
     Animated.loop(
@@ -78,32 +48,16 @@ export default function StartScreen() {
         style={styles.gradient}
       />
 
-      {/* 1. FLOATING AMBIENT SPARKLES */}
-      {sparkles.map((sp, index) => (
-        <Animated.View
-          key={index}
-          style={[
-            styles.sparkleParticle,
-            {
-              top: sp.top,
-              left: sp.left,
-              opacity: sparklePulse,
-              transform: [{ scale: sparklePulse }],
-            },
-          ]}
-        >
-          <Text style={styles.sparkleText}>✨</Text>
-        </Animated.View>
-      ))}
-            {/* 2. TOP HERO ANIMATED ILLUSTRATION IMAGE (NO BOX OR BORDER) */}
+
+      {/* 2. TOP HERO ILLUSTRATION IMAGE (STATIC) */}
       <View style={styles.heroCenterArea}>
-        <Animated.View style={[styles.heroImageWrapper, { transform: [{ translateY: floatAnim }] }]}>
+        <View style={styles.heroImageWrapper}>
           <Image
             source={require('../assets/images/scbg.png')}
             style={styles.heroImage}
             resizeMode="contain"
           />
-        </Animated.View>
+        </View>
       </View>
 
       {/* 3. BOTTOM CARD WITH URDU POETRY & GET STARTED */}
