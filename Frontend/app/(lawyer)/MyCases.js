@@ -16,6 +16,13 @@ export default function MyCases() {
     if (lbl === 'profile') router.push('/(lawyer)/LawyerProfile');
   };
 
+  const handleCasePress = (caseId) => {
+    router.push({
+      pathname: '/(lawyer)/CaseDetail',
+      params: { caseId: caseId }
+    });
+  };
+
   return (
     <SafeAreaView style={styles.safe}>
       <StatusBar barStyle="light-content" backgroundColor="#0F2744" />
@@ -38,25 +45,21 @@ export default function MyCases() {
           <TouchableOpacity 
             key={i} 
             style={styles.caseCard} 
-            onPress={() => router.push({
-              pathname: '/(lawyer)/CaseDetail',
-              params: { caseId: c.id }
-            })}
+            onPress={() => handleCasePress(c.id)}
           >
             <View style={styles.caseTop}>
               <Text style={styles.caseTitle}>{c.title}</Text>
               <Text style={styles.activeBadge}>Active</Text>
             </View>
             <Text style={styles.caseMeta}>Client Name: {c.clientName}</Text>
-            <Text style={styles.caseMeta}>Court Jurisdiction: {c.court}</Text>
             
-            <View style={styles.descriptionBox}>
-              <Text style={styles.descriptionLabel}>Problem Statement:</Text>
-              <Text style={styles.caseDescription} numberOfLines={2}>{c.description}</Text>
+            <View style={styles.problemBox}>
+              <Text style={styles.problemLabel}>Problem Statement:</Text>
+              <Text style={styles.caseDescription} numberOfLines={2}>{c.problemStatement || c.description}</Text>
             </View>
             
             <View style={styles.caseFooter}>
-              <Text style={styles.caseFooterText}>Tap to open full case profile</Text>
+              <Text style={styles.caseFooterText}>Tap to view case details</Text>
             </View>
           </TouchableOpacity>
         ))}

@@ -53,8 +53,8 @@ export default function LawyerHome() {
             </View>
           </View>
           <View style={styles.headerRight}>
-            <TouchableOpacity style={styles.notifBtn}>
-              <Text style={styles.notifText}>Notif</Text>
+            <TouchableOpacity style={styles.notifBtn} onPress={() => router.push('/(lawyer)/CaseRequests')}>
+              <Text style={styles.notifText}>Requests {caseRequests.length}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.avatar} onPress={() => router.push('/(lawyer)/LawyerProfile')}>
               <Text style={styles.avatarText}>{lawyerProfile.initials}</Text>
@@ -109,7 +109,7 @@ export default function LawyerHome() {
               <Text style={styles.reqName}>{r.name} - {r.spec}</Text>
               <Text style={styles.badgeNew}>New</Text>
             </View>
-            <Text style={styles.reqDesc}>{r.desc}</Text>
+            <Text style={styles.reqDesc} numberOfLines={2}>{r.desc}</Text>
           </TouchableOpacity>
         ))}
 

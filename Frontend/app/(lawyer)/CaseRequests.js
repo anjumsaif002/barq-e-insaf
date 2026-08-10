@@ -9,8 +9,20 @@ export default function CaseRequests() {
   const router = useRouter();
 
   const handleAccept = (id) => {
-    acceptRequest(id);
-    Alert.alert('Case Accepted', 'Case has been shifted to Active Cases.');
+    Alert.alert(
+      'Accept Case',
+      'By accepting this case, you will be able to view the client\'s contact information and evidence.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { 
+          text: 'Accept', 
+          onPress: () => {
+            acceptRequest(id);
+            Alert.alert('Case Accepted', 'Case has been moved to Active Cases. Client contact and evidence are now visible.');
+          }
+        }
+      ]
+    );
   };
 
   const handleDecline = (id) => {
@@ -18,10 +30,21 @@ export default function CaseRequests() {
       'Decline Request',
       'Are you sure you want to decline and delete this request?',
       [
-        { text: 'Yes', onPress: () => declineRequest(id) },
+        { text: 'Yes', onPress: () => {
+            declineRequest(id);
+            Alert.alert('Request Declined', 'The case request has been removed.');
+          }
+        },
         { text: 'No', style: 'cancel' }
       ]
     );
+  };
+
+  const handleViewCase = (id) => {
+    router.push({
+      pathname: '/(lawyer)/CaseDetail',
+      params: { caseId: id }
+    });
   };
 
   const handleNav = (lbl) => {
@@ -53,23 +76,25 @@ export default function CaseRequests() {
         {caseRequests.length > 0 ? (
           caseRequests.map((r, i) => (
             <View key={i} style={styles.reqCard}>
-              <View style={styles.reqTop}>
-                <Text style={styles.reqName}>{r.name} - {r.spec}</Text>
-                <Text style={styles.badgeNew}>Pending</Text>
-              </View>
-              <Text style={styles.reqMeta}>Location: {r.location} · {r.time}</Text>
-              
-              <View style={styles.problemBox}>
-                <Text style={styles.problemLabel}>Problem Statement:</Text>
-                <Text style={styles.reqDesc}>{r.desc}</Text>
-              </View>
-              
-              {/* Note detailing that contact and evidence are hidden until acceptance */}
-              <View style={styles.securedNotice}>
-                <Text style={styles.securedNoticeText}>
-                  Documents and client contact number are hidden for security until request is accepted.
-                </Text>
-              </View>
+              <TouchableOpacity onPress={() => handleViewCase(r.id)}>
+                <View style={styles.reqTop}>
+                  <Text style={styles.reqName}>{r.name} - {r.spec}</Text>
+                  <Text style={styles.badgeNew}>Pending</Text>
+                </View>
+                <Text style={styles.reqMeta}>Location: {r.location} · {r.time}</Text>
+                
+                <View style={styles.problemBox}>
+                  <Text style={styles.problemLabel}>Problem Statement:</Text>
+                  <Text style={styles.reqDesc}>{r.problemStatement || r.desc.substring(0, 80)}</Text>
+                </View>
+                
+                {/* Note detailing that contact and evidence are hidden until acceptance */}
+                <View style={styles.securedNotice}>
+                  <Text style={styles.securedNoticeText}>
+                    Contact and evidence are hidden until you accept this case.
+                  </Text>
+                </View>
+              </TouchableOpacity>
 
               <View style={styles.btnRow}>
                 <TouchableOpacity style={styles.acceptBtn} onPress={() => handleAccept(r.id)}>
