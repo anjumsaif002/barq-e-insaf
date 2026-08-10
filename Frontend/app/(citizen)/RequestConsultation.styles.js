@@ -7,7 +7,7 @@ export default StyleSheet.create({
   },
   header: {
     backgroundColor: '#5C1A1A',
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
     paddingTop: 48,
     paddingBottom: 16,
     flexDirection: 'row',
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     borderRadius: 8,
     backgroundColor: 'rgba(255,255,255,0.12)',
   },
-  backText: {
+  backBtnText: {
     color: '#fff',
     fontSize: 12,
     fontWeight: '700',
@@ -49,97 +49,49 @@ export default StyleSheet.create({
     fontWeight: '750',
     color: '#fff',
   },
-  scroll: {
+  content: {
+    padding: 16,
     flex: 1,
   },
-  scrollContent: {
-    padding: 16,
-    paddingBottom: 120,
+  title: {
+    fontSize: 18,
+    fontWeight: '750',
+    color: '#1a1a1a',
+    marginBottom: 4,
   },
-  filterRow: {
-    flexDirection: 'row',
-    gap: 8,
-    marginBottom: 16,
+  lawyerName: {
+    fontSize: 14,
+    color: '#5C1A1A',
+    fontWeight: '700',
+    marginBottom: 12,
   },
-  filterChip: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#ece9e4',
-  },
-  filterChipActive: {
-    backgroundColor: '#5C1A1A',
-    borderColor: '#5C1A1A',
-  },
-  filterText: {
+  subtitle: {
     fontSize: 12,
     color: '#666',
-    fontWeight: '600',
+    lineHeight: 18,
+    marginBottom: 16,
   },
-  filterTextActive: {
-    color: '#fff',
-  },
-  caseCard: {
+  messageInput: {
     backgroundColor: '#fff',
-    borderRadius: 16,
-    padding: 16,
-    marginBottom: 12,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: '#ece9e4',
-  },
-  caseCardTop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  caseType: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  caseTitle: {
-    fontSize: 15,
-    fontWeight: '700',
+    padding: 14,
+    fontSize: 14,
     color: '#1a1a1a',
+    height: 150,
+    textAlignVertical: 'top',
+    marginBottom: 20,
   },
-  badgeText: {
-    fontSize: 10,
-    fontWeight: '700',
-    color: '#5c1a1a',
-    backgroundColor: '#f5e8e8',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 6,
-  },
-  caseMeta: {
-    fontSize: 12,
-    color: '#888',
-    marginBottom: 12,
-  },
-  caseFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderTopWidth: 1,
-    borderTopColor: '#f5f3ef',
-    paddingTop: 10,
-  },
-  caseFooterText: {
-    fontSize: 11,
-    color: '#999',
-  },
-  viewBtn: {
+  sendBtn: {
     backgroundColor: '#5C1A1A',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
+    paddingVertical: 14,
+    borderRadius: 10,
+    alignItems: 'center',
   },
-  viewBtnText: {
+  sendBtnText: {
     color: '#fff',
-    fontSize: 11,
+    fontSize: 15,
     fontWeight: '700',
   },
   bottomNav: {
@@ -164,8 +116,5 @@ export default StyleSheet.create({
     fontSize: 11,
     fontWeight: '600',
     color: '#bbb',
-  },
-  navLabelActive: {
-    color: '#5C1A1A',
   },
 });

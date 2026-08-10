@@ -7,7 +7,7 @@ export default StyleSheet.create({
   },
   header: {
     backgroundColor: '#5C1A1A',
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
     paddingTop: 48,
     paddingBottom: 16,
     flexDirection: 'row',
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     borderRadius: 8,
     backgroundColor: 'rgba(255,255,255,0.12)',
   },
-  backText: {
+  backBtnText: {
     color: '#fff',
     fontSize: 12,
     fontWeight: '700',
@@ -52,95 +52,59 @@ export default StyleSheet.create({
   scroll: {
     flex: 1,
   },
-  scrollContent: {
+  content: {
     padding: 16,
     paddingBottom: 120,
   },
-  filterRow: {
-    flexDirection: 'row',
-    gap: 8,
-    marginBottom: 16,
+  title: {
+    fontSize: 18,
+    fontWeight: '750',
+    color: '#1a1a1a',
+    marginBottom: 4,
   },
-  filterChip: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#ece9e4',
+  caseName: {
+    fontSize: 13,
+    color: '#5c1a1a',
+    fontWeight: '700',
+    marginBottom: 10,
   },
-  filterChipActive: {
-    backgroundColor: '#5C1A1A',
-    borderColor: '#5C1A1A',
-  },
-  filterText: {
+  info: {
     fontSize: 12,
     color: '#666',
-    fontWeight: '600',
+    lineHeight: 18,
+    marginBottom: 16,
   },
-  filterTextActive: {
-    color: '#fff',
-  },
-  caseCard: {
+  evidenceContainer: {
     backgroundColor: '#fff',
-    borderRadius: 16,
-    padding: 16,
-    marginBottom: 12,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: '#ece9e4',
+    padding: 14,
   },
-  caseCardTop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  caseType: {
+  evidenceCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    flex: 1,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f5f3ef',
   },
-  caseTitle: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: '#1a1a1a',
-  },
-  badgeText: {
-    fontSize: 10,
-    fontWeight: '700',
-    color: '#5c1a1a',
-    backgroundColor: '#f5e8e8',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 6,
-  },
-  caseMeta: {
-    fontSize: 12,
-    color: '#888',
-    marginBottom: 12,
-  },
-  caseFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderTopWidth: 1,
-    borderTopColor: '#f5f3ef',
-    paddingTop: 10,
-  },
-  caseFooterText: {
-    fontSize: 11,
-    color: '#999',
-  },
-  viewBtn: {
+  bulletBox: {
+    width: 8,
+    height: 8,
+    borderRadius: 2,
     backgroundColor: '#5C1A1A',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
+    marginRight: 10,
   },
-  viewBtnText: {
-    color: '#fff',
-    fontSize: 11,
-    fontWeight: '700',
+  evidenceText: {
+    fontSize: 13,
+    color: '#333',
+    fontWeight: '600',
+  },
+  emptyText: {
+    color: '#999',
+    fontStyle: 'italic',
+    textAlign: 'center',
+    paddingVertical: 20,
   },
   bottomNav: {
     position: 'absolute',
@@ -164,8 +128,5 @@ export default StyleSheet.create({
     fontSize: 11,
     fontWeight: '600',
     color: '#bbb',
-  },
-  navLabelActive: {
-    color: '#5C1A1A',
   },
 });

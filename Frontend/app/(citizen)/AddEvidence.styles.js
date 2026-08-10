@@ -7,7 +7,7 @@ export default StyleSheet.create({
   },
   header: {
     backgroundColor: '#5C1A1A',
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
     paddingTop: 48,
     paddingBottom: 16,
     flexDirection: 'row',
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     borderRadius: 8,
     backgroundColor: 'rgba(255,255,255,0.12)',
   },
-  backText: {
+  backBtnText: {
     color: '#fff',
     fontSize: 12,
     fontWeight: '700',
@@ -52,94 +52,73 @@ export default StyleSheet.create({
   scroll: {
     flex: 1,
   },
-  scrollContent: {
+  content: {
     padding: 16,
     paddingBottom: 120,
   },
-  filterRow: {
-    flexDirection: 'row',
-    gap: 8,
-    marginBottom: 16,
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: '750',
+    color: '#1a1a1a',
+    marginBottom: 4,
   },
-  filterChip: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#ece9e4',
-  },
-  filterChipActive: {
-    backgroundColor: '#5C1A1A',
-    borderColor: '#5C1A1A',
-  },
-  filterText: {
+  subtitle: {
     fontSize: 12,
     color: '#666',
-    fontWeight: '600',
+    marginBottom: 20,
   },
-  filterTextActive: {
-    color: '#fff',
-  },
-  caseCard: {
+  explorerBox: {
     backgroundColor: '#fff',
-    borderRadius: 16,
-    padding: 16,
-    marginBottom: 12,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: '#ece9e4',
+    overflow: 'hidden',
   },
-  caseCardTop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
+  explorerHeader: {
+    backgroundColor: '#f8f9fa',
+    padding: 12,
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#666',
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    textTransform: 'uppercase',
   },
-  caseType: {
+  fileRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f5f3ef',
+  },
+  fileIconBox: {
+    backgroundColor: '#f5f3ef',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+    marginRight: 12,
+  },
+  fileIconText: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: '#5c1a1a',
+  },
+  fileInfo: {
     flex: 1,
   },
-  caseTitle: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: '#1a1a1a',
+  fileName: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#333',
   },
-  badgeText: {
-    fontSize: 10,
-    fontWeight: '700',
-    color: '#5c1a1a',
-    backgroundColor: '#f5e8e8',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 6,
-  },
-  caseMeta: {
-    fontSize: 12,
-    color: '#888',
-    marginBottom: 12,
-  },
-  caseFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderTopWidth: 1,
-    borderTopColor: '#f5f3ef',
-    paddingTop: 10,
-  },
-  caseFooterText: {
+  fileSize: {
     fontSize: 11,
     color: '#999',
+    marginTop: 2,
   },
-  viewBtn: {
-    backgroundColor: '#5C1A1A',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-  },
-  viewBtnText: {
-    color: '#fff',
-    fontSize: 11,
+  importText: {
+    fontSize: 12,
+    color: '#5c1a1a',
     fontWeight: '700',
   },
   bottomNav: {
@@ -164,8 +143,5 @@ export default StyleSheet.create({
     fontSize: 11,
     fontWeight: '600',
     color: '#bbb',
-  },
-  navLabelActive: {
-    color: '#5C1A1A',
   },
 });
