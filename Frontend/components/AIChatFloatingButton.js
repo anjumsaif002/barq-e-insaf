@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import Constants from 'expo-constants';
 import {
   View,
   Text,
@@ -74,16 +75,19 @@ export default function AIChatFloatingButton() {
     setLoading(true);
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/chat', {
+      // Automatically detect the laptop's IP address so it works on any Wi-Fi!
+      const laptopIp = Constants.expoConfig?.hostUri?.split(':')[0] || 'localhost';
+      
+      const response = await fetch(`http://${laptopIp}:5000/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: userQuery }),
+        body: JSON.stringify({ message: userQuery, model: 'llama-3.3-70b-versatile', temperature: 0.3 }),
       });
 
       const data = await response.json();
       const aiResponseText = data.response || data.answer || 'Thank you for your legal query. For formal court filings, connect with a verified advocate on Barq-e-Insaf.';
 
-      setMessages((prev) => [...prev, { id: (Date.now() + 1).toString(), sender: 'ai', text: aiResponseText }]);
+      setMessages((prev) => [...prev, { id: (Date.now() + 1).toString(), sender: 'ai', text: aiResponseText, sources: data.sources }]);
     } catch (error) {
       setMessages((prev) => [...prev, { id: (Date.now() + 1).toString(), sender: 'ai', text: 'Connecting to Barq-e-Insaf AI server... Please ensure run_chatbot.bat is running locally.' }]);
     } finally {
@@ -144,6 +148,18 @@ export default function AIChatFloatingButton() {
               {messages.map((msg) => (
                 <View key={msg.id} style={[styles.msgBubble, msg.sender === 'user' ? styles.userBubble : styles.aiBubble]}>
                   <Text style={[styles.msgText, msg.sender === 'user' ? styles.userMsgText : styles.aiMsgText]}>{msg.text}</Text>
+                  
+                  {/* Render Sources if available */}
+                  {msg.sources && msg.sources.length > 0 && (
+                    <View style={styles.sourcesContainer}>
+                      <Text style={styles.sourcesTitle}>Reference Documents:</Text>
+                      {msg.sources.map((src, idx) => (
+                        <Text key={idx} style={styles.sourceItem}>
+                          • {src.source} {src.page && src.page !== 'N/A' ? `(Page ${src.page})` : ''}
+                        </Text>
+                      ))}
+                    </View>
+                  )}
                 </View>
               ))}
               {loading && (
@@ -215,27 +231,30 @@ const styles = StyleSheet.create({
     marginTop: -4,
   },
   aiTagText: { color: '#0F2744', fontSize: 8, fontWeight: '900', letterSpacing: 0.5 },
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.65)', justifyContent: 'flex-end' },
-  modalCard: { backgroundColor: '#fff', borderTopLeftRadius: 28, borderTopRightRadius: 28, height: SCREEN_HEIGHT * 0.84 },
-  modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 16, backgroundColor: '#0F2744', borderTopLeftRadius: 28, borderTopRightRadius: 28 },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.75)', justifyContent: 'flex-end' },
+  modalCard: { backgroundColor: '#0F172A', borderTopLeftRadius: 28, borderTopRightRadius: 28, height: SCREEN_HEIGHT * 0.84 },
+  modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 16, backgroundColor: '#020617', borderTopLeftRadius: 28, borderTopRightRadius: 28 },
   headerTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   headerBadge: { width: 38, height: 38, borderRadius: 19, backgroundColor: '#3b82f6', justifyContent: 'center', alignItems: 'center' },
   headerIcon: { fontSize: 20 },
-  headerTitle: { color: '#fff', fontSize: 16, fontWeight: '800' },
+  headerTitle: { color: '#f8fafc', fontSize: 16, fontWeight: '800' },
   headerSub: { color: '#fbbf24', fontSize: 11, fontWeight: '600', marginTop: 1 },
-  closeBtn: { width: 34, height: 34, borderRadius: 17, backgroundColor: 'rgba(255, 255, 255, 0.15)', justifyContent: 'center', alignItems: 'center' },
-  closeBtnText: { color: '#fff', fontSize: 16, fontWeight: '800' },
-  chatScroll: { flex: 1, backgroundColor: '#F8FAFC' },
+  closeBtn: { width: 34, height: 34, borderRadius: 17, backgroundColor: 'rgba(255, 255, 255, 0.1)', justifyContent: 'center', alignItems: 'center' },
+  closeBtnText: { color: '#f8fafc', fontSize: 16, fontWeight: '800' },
+  chatScroll: { flex: 1, backgroundColor: '#0F172A' },
   chatContent: { padding: 18, gap: 12 },
   msgBubble: { maxWidth: '84%', padding: 14, borderRadius: 18, marginBottom: 8 },
-  userBubble: { alignSelf: 'flex-end', backgroundColor: '#0F2744', borderBottomRightRadius: 4 },
-  aiBubble: { alignSelf: 'flex-start', backgroundColor: '#fff', borderBottomLeftRadius: 4, borderWidth: 1, borderColor: '#e2e8f0' },
-  userMsgText: { color: '#fff', fontSize: 13, lineHeight: 19 },
-  aiMsgText: { color: '#1e293b', fontSize: 13, lineHeight: 19 },
+  userBubble: { alignSelf: 'flex-end', backgroundColor: '#3b82f6', borderBottomRightRadius: 4 },
+  aiBubble: { alignSelf: 'flex-start', backgroundColor: '#1E293B', borderBottomLeftRadius: 4, borderWidth: 1, borderColor: '#334155' },
+  userMsgText: { color: '#ffffff', fontSize: 13, lineHeight: 19 },
+  aiMsgText: { color: '#e2e8f0', fontSize: 13, lineHeight: 19 },
   loadingRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  loadingText: { color: '#64748b', fontSize: 12, fontStyle: 'italic' },
-  inputBar: { flexDirection: 'row', alignItems: 'center', padding: 14, paddingHorizontal: 16, backgroundColor: '#fff', borderTopWidth: 1, borderTopColor: '#e2e8f0', gap: 10 },
-  textInput: { flex: 1, backgroundColor: '#f1f5f9', borderRadius: 24, paddingHorizontal: 18, paddingVertical: 10, fontSize: 13, color: '#0f172a' },
+  loadingText: { color: '#94a3b8', fontSize: 12, fontStyle: 'italic' },
+  inputBar: { flexDirection: 'row', alignItems: 'center', padding: 14, paddingHorizontal: 16, backgroundColor: '#020617', borderTopWidth: 1, borderTopColor: '#1E293B', gap: 10 },
+  textInput: { flex: 1, backgroundColor: '#1E293B', borderRadius: 24, paddingHorizontal: 18, paddingVertical: 10, fontSize: 13, color: '#f8fafc' },
   sendBtn: { width: 44, height: 44, borderRadius: 22, backgroundColor: '#3b82f6', justifyContent: 'center', alignItems: 'center' },
-  sendBtnText: { color: '#fff', fontSize: 18, fontWeight: '800' },
+  sendBtnText: { color: '#ffffff', fontSize: 18, fontWeight: '800' },
+  sourcesContainer: { marginTop: 10, paddingTop: 10, borderTopWidth: 1, borderTopColor: '#334155' },
+  sourcesTitle: { color: '#fbbf24', fontSize: 11, fontWeight: 'bold', marginBottom: 4 },
+  sourceItem: { color: '#94a3b8', fontSize: 11, fontStyle: 'italic', marginBottom: 2 },
 });
