@@ -16,7 +16,6 @@ export default function SplashScreen() {
       Animated.spring(scaleAnim, { toValue: 1, friction: 6, useNativeDriver: true }),
     ]).start();
 
-    // After 2.5s, transition smoothly
     const timer = setTimeout(() => {
       router.replace('/StartScreen');
     }, 2500);
@@ -46,8 +45,6 @@ export default function SplashScreen() {
           style={styles.logo}
           resizeMode="contain"
         />
-        <Text style={styles.appName}>Barq-e-Insaf</Text>
-        <Text style={styles.tagline}>AI-Powered Legal Empowerment</Text>
       </Animated.View>
     </View>
   );
@@ -58,7 +55,7 @@ const styles = StyleSheet.create({
   bgImage: { position: 'absolute', width: width, height: height, top: 0 },
   gradient: { position: 'absolute', width: width, height: height },
   content: { alignItems: 'center', zIndex: 10 },
-  logo: { width: 100, height: 100, marginBottom: 16 },
+  logo: { width: 250, height: 250, marginBottom: 16 },
   appName: { fontSize: 32, fontWeight: '900', color: '#fff', letterSpacing: -0.5 },
   tagline: { fontSize: 13, color: 'rgba(255,255,255,0.7)', marginTop: 6, fontWeight: '600', letterSpacing: 0.5 },
 });
